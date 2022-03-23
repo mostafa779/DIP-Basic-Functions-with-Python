@@ -105,15 +105,10 @@ def contrast_stretch(image,s_min=100,s_max=151):
 # bin(n).replace('0b','') decimal to binary
 # int(val,2) binary to decimal
 def bitSlicing(image):
-    matrix = np.copy(image)
-    matrix[:] = 0
-    for i,row in enumerate(image):
-        for j,pixel in enumerate(row):
-            p = bin(getValue(pixel)).replace('0b','')
-            matrix[i][j] = p
-
-    print(matrix)
+    # not implemented yet
+    pass
 
 
 def bits(pixel):
+    # not implemented yet
     pass
