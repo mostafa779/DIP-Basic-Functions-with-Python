@@ -102,8 +102,7 @@ def contrast_stretch(image,s_min=100,s_max=151):
 
     return np.array(matrix,dtype='uint8')
 
-# bin(n).replace('0b','') decimal to binary
-# int(val,2) binary to decimal
+
 def bitSlicing(image):
     # not implemented yet
     pass
