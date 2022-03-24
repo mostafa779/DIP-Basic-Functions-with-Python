@@ -1,5 +1,6 @@
 import cv2 as cv
 import numpy as np
+from helper import *
 
 def subSample(image,r=2):
     # 100 * 98
@@ -103,11 +104,12 @@ def contrast_stretch(image,s_min=100,s_max=151):
     return np.array(matrix,dtype='uint8')
 
 
-def bitSlicing(image):
-    # not implemented yet
-    pass
+def bitSlicing(image,k=4):
+    matrix = np.copy(image)
+    for row in matrix:
+        for pixel in row:
+            for i in range(3):
+                bits = getBits(pixel[i])
+                pixel[i] = toDecimal(bits,k)
 
-
-def bits(pixel):
-    # not implemented yet
-    pass
+    return matrix
