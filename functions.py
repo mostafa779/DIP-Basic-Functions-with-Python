@@ -113,3 +113,43 @@ def bitSlicing(image,k=4):
                 pixel[i] = toDecimal(bits,k)
 
     return matrix
+
+def filtering(image, type, n=3):
+    img = replicate(image,n)
+    newImg = np.copy(img)
+    
+    height = img.shape[0]
+    width = img.shape[1]
+    
+    dict = {}
+    for row in range(0+n,height-n):
+        for col in range(0+n,width-n):
+            dict[row,col] = getNeighbours(img, row, col, n)
+            
+    # reverse dict to get the first item when calling popitem() method
+    dict = OrderedDict(reversed(list(dict.items())))
+    
+    matrix = dict.popitem()
+    
+    if type == 'avg':
+        window = np.zeros((n,n,3))
+        window[:] = 1 / (n*n)
+        for _ in range(len(dict)):
+            conv_sum = convlution_sum(window, matrix[1])
+            newImg[matrix[0][0]][matrix[0][1]] = conv_sum
+            matrix = dict.popitem()
+    
+    elif type == 'sorted':
+        for _ in range(len(dict)):
+            
+            mask = matrix[1]
+
+            r = matrix[0][0]
+            c = matrix[0][1]
+            
+            newImg[r][c] = np.median(mask)
+            
+            matrix = dict.popitem()
+            
+    
+    return newImg
